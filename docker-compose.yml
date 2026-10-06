@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pds_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pds_user
+      POSTGRES_PASSWORD: pds_secret_password
+      POSTGRES_DB: pds_db
+    volumes:
+      - pds_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pds_user -d pds_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pds_internal_network
+
+  pds-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pds_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      PROJECT_NAME: "ARC PDS"
+      API_V1_STR: "/api/v1"
+      SECRET_KEY: "change-this-to-a-cryptographically-secure-random-32-byte-hex-secret"
+      DATABASE_URL: "postgresql+asyncpg://pds_user:pds_secret_password@postgres:5432/pds_db"
+      ACCESS_TOKEN_EXPIRE_MINUTES: 15
+      REFRESH_TOKEN_EXPIRE_DAYS: 30
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - pds_internal_network
+
+volumes:
+  pds_pgdata:
+    driver: local
+
+networks:
+  pds_internal_network:
+    driver: bridge
