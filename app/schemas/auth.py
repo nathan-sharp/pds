@@ -61,6 +61,9 @@ class UserResponse(BaseModel):
 
     id: str
     pds_id: str
+    did: str
+    signing_key_ed25519: Optional[str] = None
+    encryption_key_x25519: Optional[str] = None
     public_identity_key: Optional[str] = None
     encrypted_key_envelope: Optional[str] = None
     created_at: datetime

@@ -51,9 +51,12 @@ async def register_user(
     # Argon2id password hashing
     password_digest = hash_password(payload.password)
 
+    user_did = f"did:web:{settings.SERVER_DOMAIN}:users:{payload.pds_id}"
     user = User(
         pds_id=payload.pds_id,
+        did=user_did,
         hashed_password=password_digest,
+        signing_key_ed25519=payload.public_identity_key,
         public_identity_key=payload.public_identity_key,
         encrypted_key_envelope=payload.encrypted_key_envelope,
         is_active=True,

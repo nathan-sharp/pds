@@ -57,6 +57,29 @@ def create_application() -> FastAPI:
     # Mount API V1 router
     app.include_router(api_router, prefix=settings.API_V1_STR)
 
+    # Standard W3C did:web resolution routes
+    from app.services.identity_service import build_server_did_document, build_user_did_document
+    from app.db.session import get_db
+    from app.models.user import User
+    from sqlalchemy import select
+    from sqlalchemy.ext.asyncio import AsyncSession
+    from fastapi import Depends, HTTPException
+
+    @app.get("/.well-known/did.json", tags=["W3C did:web"])
+    async def get_well_known_did():
+        """Expose root server W3C did:web document."""
+        return build_server_did_document()
+
+    @app.get("/users/{pds_id}/did.json", tags=["W3C did:web"])
+    async def get_user_well_known_did(pds_id: str, db: AsyncSession = Depends(get_db)):
+        """Expose user W3C did:web document."""
+        stmt = select(User).where(User.pds_id == pds_id, User.is_active.is_(True))
+        result = await db.execute(stmt)
+        user = result.scalar_one_or_none()
+        if not user:
+            raise HTTPException(status_code=404, detail="User DID not found")
+        return build_user_did_document(user)
+
     return app
 
 

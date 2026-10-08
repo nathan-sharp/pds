@@ -17,6 +17,16 @@ from app.schemas.sync import (
     SyncPushRequest,
     SyncPullResponse,
 )
+from app.schemas.identity import (
+    DIDDocument,
+    RegisterKeysRequest,
+    IdentityResponse,
+)
+from app.schemas.records import (
+    PublicRecordCreateRequest,
+    PublicRecordResponse,
+    PublicRecordListResponse,
+)
 
 __all__ = [
     "APIResponse",
@@ -30,4 +40,10 @@ __all__ = [
     "EncryptedRecordPayload",
     "SyncPushRequest",
     "SyncPullResponse",
+    "DIDDocument",
+    "RegisterKeysRequest",
+    "IdentityResponse",
+    "PublicRecordCreateRequest",
+    "PublicRecordResponse",
+    "PublicRecordListResponse",
 ]

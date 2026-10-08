@@ -19,9 +19,16 @@ class User(Base):
     pds_id: Mapped[str] = mapped_column(
         String(128), unique=True, index=True, nullable=False
     )
+    did: Mapped[str] = mapped_column(
+        String(256), unique=True, index=True, nullable=False
+    )
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
     
-    # Optional client-side public identity key (e.g., Ed25519/X25519 in Hex/Base64)
+    # Public identity keys for W3C did:web documents
+    signing_key_ed25519: Mapped[str] = mapped_column(String(128), nullable=True)
+    encryption_key_x25519: Mapped[str] = mapped_column(String(128), nullable=True)
+
+    # Legacy public identity key (retained for backward compatibility)
     public_identity_key: Mapped[str] = mapped_column(Text, nullable=True)
 
     # Encrypted Master Key (EMK) envelope stored blindly for cross-device key sync

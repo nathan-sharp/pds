@@ -9,8 +9,8 @@ This document outlines the phased engineering milestones for the ARC (Anthro Res
 | Phase | Milestone Name | Primary Focus | Status |
 | :---: | :--- | :--- | :---: |
 | **1** | **Core Node & Private Storage** | Containerized FastAPI runtime, PDS ID authentication, Argon2id, OAuth 2.0 PKCE, and blind E2EE sync blobs. | **Completed** |
-| **2** | **Decentralized Identity & Dual-Zone Storage** | W3C `did:web` documents, Ed25519 and X25519 keys, and signed public federated record storage. | **Up Next** |
-| **3** | **Event Streaming & Processing Engine** | Real-time WebSocket event firehose and HMAC-signed webhook dispatcher. | **Planned** |
+| **2** | **Decentralized Identity & Dual-Zone Storage** | W3C `did:web` documents, Ed25519 and X25519 keys, and signed public federated record storage. | **Completed** |
+| **3** | **Event Streaming & Processing Engine** | Real-time WebSocket event firehose and HMAC-signed webhook dispatcher. | **Up Next** |
 | **4** | **Server-to-Server (S2S) Federation** | RFC 9421 HTTP Message Signatures, cross-node discovery, and inbox record synchronization. | **Planned** |
 | **5** | **Creator Monetization & HTTP 402** | Local budget manager, L402 challenge/response middleware, and Layer-2 micropayment integrations. | **Parked (Deferred)** |
 
@@ -26,14 +26,14 @@ This document outlines the phased engineering milestones for the ARC (Anthro Res
 - [x] JWT access token issuance with rotating refresh tokens.
 - [x] Opaque End-to-End Encrypted (E2EE) data push/pull endpoints for private suite apps.
 
-### Phase 2: Decentralized Identity & Dual-Zone Storage (Status: Up Next)
-- [ ] Database schema for cryptographic identity key pairs (Ed25519 signing key, X25519 encryption key).
-- [ ] W3C DID document resolver at `/.well-known/did.json` and `/api/v1/identity/{did}`.
-- [ ] Public federated record storage schema for Flock and public collections.
-- [ ] Ingestion endpoint with Ed25519 cryptographic signature verification (`POST /api/v1/records`).
-- [ ] Account migration export and signature verification mechanism.
+### Phase 2: Decentralized Identity & Dual-Zone Storage (Status: Completed)
+- [x] Database schema for cryptographic identity key pairs (Ed25519 signing key, X25519 encryption key).
+- [x] W3C DID document resolver at `/.well-known/did.json`, `/users/{username}/did.json`, and `/api/v1/identity/{did}`.
+- [x] Public federated record storage schema for Flock and public collections.
+- [x] Ingestion endpoint with Ed25519 cryptographic signature verification (`POST /api/v1/records`).
+- [x] Public record listing and retrieval endpoints (`GET /api/v1/records/{did}/{collection}`).
 
-### Phase 3: Event Streaming & Processing Engine (Status: Planned)
+### Phase 3: Event Streaming & Processing Engine (Status: Up Next)
 - [ ] In-memory / database pub-sub event dispatcher.
 - [ ] Real-time WebSocket firehose endpoint (`WS /api/v1/events/firehose`).
 - [ ] Webhook subscription registry with retry queues (`POST /api/v1/webhooks/subscriptions`).

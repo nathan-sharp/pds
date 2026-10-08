@@ -95,3 +95,32 @@ def verify_pkce(code_verifier: str, code_challenge: str, method: str = "S256") -
 
     # Constant-time comparison to prevent timing attacks
     return hmac.compare_digest(calculated_challenge, code_challenge.rstrip("="))
+
+
+def canonicalize_json(data: Any) -> bytes:
+    """Serialize object to deterministic, sorted, whitespace-free canonical JSON bytes."""
+    import json
+
+    return json.dumps(data, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
+def verify_ed25519_signature(
+    public_key_b64: str, data: bytes, signature_b64: str
+) -> bool:
+    """Verify Ed25519 digital signature over raw bytes. Fail closed on format error."""
+    from cryptography.exceptions import InvalidSignature
+    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+
+    try:
+        # Standard or URL-safe base64 decoding with padding tolerance
+        pad_key = public_key_b64 + "=" * (-len(public_key_b64) % 4)
+        key_bytes = base64.urlsafe_b64decode(pad_key)
+
+        pad_sig = signature_b64 + "=" * (-len(signature_b64) % 4)
+        sig_bytes = base64.urlsafe_b64decode(pad_sig)
+
+        pubkey = Ed25519PublicKey.from_public_bytes(key_bytes)
+        pubkey.verify(sig_bytes, data)
+        return True
+    except (InvalidSignature, ValueError, Exception):
+        return False

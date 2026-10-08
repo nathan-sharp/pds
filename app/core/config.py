@@ -17,6 +17,10 @@ class Settings(BaseSettings):
 
     PROJECT_NAME: str = "ARC PDS"
     API_V1_STR: str = "/api/v1"
+    SERVER_DOMAIN: str = Field(
+        default="localhost:8000",
+        description="Public server domain for W3C did:web resolution",
+    )
 
     # Cryptographic secrets
     # Ensure SECRET_KEY contains at least 32 bytes of cryptographic entropy in production
