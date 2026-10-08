@@ -12,7 +12,7 @@ This document outlines the phased engineering milestones for the ARC (Anthro Res
 | **2** | **Decentralized Identity & Dual-Zone Storage** | W3C `did:web` documents, Ed25519 and X25519 keys, and signed public federated record storage. | **Up Next** |
 | **3** | **Event Streaming & Processing Engine** | Real-time WebSocket event firehose and HMAC-signed webhook dispatcher. | **Planned** |
 | **4** | **Server-to-Server (S2S) Federation** | RFC 9421 HTTP Message Signatures, cross-node discovery, and inbox record synchronization. | **Planned** |
-| **5** | **Creator Monetization & HTTP 402** | Local budget manager, L402 challenge/response middleware, and Layer-2 micropayment integrations. | **Planned** |
+| **5** | **Creator Monetization & HTTP 402** | Local budget manager, L402 challenge/response middleware, and Layer-2 micropayment integrations. | **Parked (Deferred)** |
 
 ---
 
@@ -45,7 +45,7 @@ This document outlines the phased engineering milestones for the ARC (Anthro Res
 - [ ] Cross-node inbox endpoint (`POST /api/v1/federation/inbox`).
 - [ ] Peer discovery and public key cache manager.
 
-### Phase 5: Creator Monetization & HTTP 402 (Status: Planned)
+### Phase 5: Creator Monetization & HTTP 402 (Status: Parked / Deferred)
 - [ ] User monthly budget management database models and API.
 - [ ] HTTP 402 challenge generator with Macaroon caveat verification.
 - [ ] L402 client middleware for automatic payment and preimage redemption.

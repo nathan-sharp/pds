@@ -65,9 +65,9 @@ This document records the foundational architectural decisions for the ARC (Anth
 
 ## ADR-006: Decentralized Creator Monetization via Local Pools and HTTP 402
 
-- **Status**: Accepted
+- **Status**: Deferred (Parked)
 - **Context**: Open networks (Mastodon, Bluesky) struggle to attract professional creators due to the lack of built-in monetization. Global payment pools suffer from Sybil bot-farming attacks.
-- **Decision**: Implement a decentralized monetization model based on:
+- **Decision Deferred**: Monetization mechanics are parked to prioritize core decentralized identity, dual-zone storage, and federation protocols.
   1. **Local User Pools**: Users fund a voluntary monthly budget inside their own PDS. Funds split proportionally only among creators that specific user consumed.
   2. **HTTP 402 Protocol**: Creators gate exclusive content with HTTP status code 402 (`Payment Required`).
   3. **Layer-2 Micropayments**: Clients settle sub-cent payments via the Lightning Network (L402 standard) or local voucher tokens.
