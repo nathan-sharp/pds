@@ -69,12 +69,19 @@ def create_access_token(
 def decode_access_token(token: str) -> Optional[Dict[str, Any]]:
     """Decode and validate JWT access token. Fail closed on error."""
     try:
+        # PDS does not enforce audience for access tokens in decode yet,
+        # but PyJWT does if 'aud' is present in the token and we don't pass an audience list.
+        # We can extract the unverified header/payload if necessary or we can
+        # just accept whatever audience the token has for the purpose of decode,
+        # but doing unverified decode and passing it as valid is a security risk.
+        # Actually, if we just set `audience=None` but PyJWT will complain if the token has `aud`.
+        # To strictly validate the signature but ignore the audience:
         payload = jwt.decode(
             token,
             settings.SECRET_KEY,
             algorithms=[settings.ALGORITHM],
             issuer="pds-auth-hub",
-            options={"require": ["exp", "iat", "sub"]},
+            options={"require": ["exp", "iat", "sub"], "verify_aud": False},
         )
         return payload
     except (jwt.PyJWTError, Exception):
