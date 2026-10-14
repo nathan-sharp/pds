@@ -35,7 +35,7 @@ This document outlines the phased engineering milestones for the ARC (Anthro Res
 
 ### Phase 3: Event Streaming & Processing Engine (Status: Up Next)
 - [x] In-memory / database pub-sub event dispatcher.
-- [ ] Real-time WebSocket firehose endpoint (`WS /api/v1/events/firehose`).
+- [x] Real-time WebSocket firehose endpoint (`WS /api/v1/events/firehose`).
 - [ ] Webhook subscription registry with retry queues (`POST /api/v1/webhooks/subscriptions`).
 - [ ] HMAC-SHA256 signature generation for webhook payload delivery.
 

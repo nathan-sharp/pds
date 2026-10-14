@@ -14,6 +14,17 @@ class EventDispatcher:
             self._subscribers[topic] = []
         self._subscribers[topic].append(callback)
 
+    def unsubscribe(self, topic: str, callback: Callback) -> None:
+        """Unsubscribe a callback from a specific topic."""
+        if topic in self._subscribers:
+            try:
+                self._subscribers[topic].remove(callback)
+                # Cleanup empty topics
+                if not self._subscribers[topic]:
+                    del self._subscribers[topic]
+            except ValueError:
+                pass
+
     async def publish(self, topic: str, payload: Dict[str, Any]) -> None:
         """Publish an event payload to all subscribers of the topic."""
         if topic not in self._subscribers:
