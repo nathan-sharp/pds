@@ -27,6 +27,11 @@ from app.schemas.records import (
     PublicRecordResponse,
     PublicRecordListResponse,
 )
+from app.schemas.webhook import (
+    WebhookCreate,
+    WebhookResponse,
+    WebhookResponseWithSecret,
+)
 
 __all__ = [
     "APIResponse",
@@ -46,4 +51,7 @@ __all__ = [
     "PublicRecordCreateRequest",
     "PublicRecordResponse",
     "PublicRecordListResponse",
+    "WebhookCreate",
+    "WebhookResponse",
+    "WebhookResponseWithSecret",
 ]
