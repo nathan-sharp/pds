@@ -4,6 +4,7 @@ from app.models.user import User
 from app.models.oauth import OAuthClient, OAuthAuthorizationCode, OAuthRefreshToken
 from app.models.sync_blob import EncryptedSyncRecord
 from app.models.public_record import PublicRecord
+from app.models.webhook import WebhookSubscription
 
 __all__ = [
     "User",
@@ -12,4 +13,5 @@ __all__ = [
     "OAuthRefreshToken",
     "EncryptedSyncRecord",
     "PublicRecord",
+    "WebhookSubscription",
 ]
